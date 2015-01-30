@@ -19,10 +19,10 @@ test('convert to base64 and back', function (t) {
     var check = checks[i]
     var b64Str, arr, str
 
-    b64Str = b64.fromByteArray(map(check, function (char) { return char.charCodeAt(0); }))
+    b64Str = b64.fromByteArray(map(check, function (char) { return char.charCodeAt(0) }))
 
     arr = b64.toByteArray(b64Str)
-    str = map(arr, function (byte) { return String.fromCharCode(byte); }).join('')
+    str = map(arr, function (byte) { return String.fromCharCode(byte) }).join('')
 
     t.equal(check, str, 'Checked ' + check)
   }
