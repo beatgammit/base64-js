@@ -9,7 +9,7 @@
   },
   "main": "lib/b64.js",
   "scripts": {
-    "test": "tape test/*.js"
+    "test": "standard && tape test/*.js"
   },
   "testling": {
     "files": "test/*.js",
@@ -29,6 +29,7 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
+    "standard": "^2.2.2",
     "tape": "~2.3.2"
   }
 }
