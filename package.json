@@ -30,6 +30,6 @@
   "dependencies": {},
   "devDependencies": {
     "standard": "2.x",
-    "tape": "~2.3.2"
+    "tape": "3.x"
   }
 }
