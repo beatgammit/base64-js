@@ -10,5 +10,5 @@ var end = Date.now()
 
 console.log('decode ms, decode ops/ms, encode ms, encode ops/ms')
 console.log(
-	middle - start,  data.length / (middle - start),
-	end - middle,  data.length / (end - middle))
+	middle - start, data.length / (middle - start),
+	end - middle, data.length / (end - middle))
