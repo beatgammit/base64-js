@@ -29,7 +29,7 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "standard": "2.x",
     "tape": "3.x"
+    "standard": "3.x",
   }
 }
