@@ -11,18 +11,6 @@
   "scripts": {
     "test": "standard && tape test/*.js"
   },
-  "testling": {
-    "files": "test/*.js",
-    "browsers": [
-      "ie/6..latest",
-      "chrome/4..latest",
-      "firefox/3..latest",
-      "safari/5.1..latest",
-      "opera/11.0..latest",
-      "iphone/6",
-      "ipad/6"
-    ]
-  },
   "engines": {
     "node": ">= 0.4"
   },
