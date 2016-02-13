@@ -11,9 +11,6 @@
   "scripts": {
     "test": "standard && tape test/*.js"
   },
-  "engines": {
-    "node": ">= 0.4"
-  },
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
