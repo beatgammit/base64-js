@@ -1,14 +1,22 @@
+var base64 = require('../')
+var benchmark = require('benchmark')
+
+var suite = new benchmark.Suite()
 var random = require('crypto').pseudoRandomBytes
-
-var b64 = require('../')
 var data = random(1e6).toString('base64')
-var start = Date.now()
-var raw = b64.toByteArray(data)
-var middle = Date.now()
-data = b64.fromByteArray(raw)
-var end = Date.now()
+var raw = base64.toByteArray(data)
 
-console.log('decode ms, decode ops/ms, encode ms, encode ops/ms')
-console.log(
-	middle - start, data.length / (middle - start),
-	end - middle, data.length / (end - middle))
+suite
+  .add('base64.toByteArray() (decode)', function () {
+    var raw2 = base64.toByteArray(data) // eslint-disable-line no-unused-vars
+  })
+  .add('base64.fromByteArray() (encode)', function () {
+    var data2 = base64.fromByteArray(raw) // eslint-disable-line no-unused-vars
+  })
+  .on('error', function (event) {
+    console.error(event.target.error.stack)
+  })
+  .on('cycle', function (event) {
+    console.log(String(event.target))
+  })
+  .run({ async: true })
