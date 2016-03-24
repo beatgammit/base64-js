@@ -19,6 +19,7 @@
     "browserify": "^13.0.0",
     "standard": "^6.0.5",
     "tape": "4.x",
-    "uglify-js": "^2.6.2"
+    "uglify-js": "^2.6.2",
+    "xorshift.js": "^1.0.3"
   }
 }

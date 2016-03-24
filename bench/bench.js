@@ -1,12 +1,16 @@
 var base64 = require('../')
 var benchmark = require('benchmark')
 
-var suite = new benchmark.Suite()
-var random = require('crypto').pseudoRandomBytes
-var data = random(1e6).toString('base64')
+var randomBytes = require('crypto').randomBytes
+var XorShift128Plus = require('xorshift.js').XorShift128Plus
+
+var seed = process.env.SEED || randomBytes(16).toString('hex')
+console.log('SEED: ' + seed)
+var prng = new XorShift128Plus(seed)
+var data = prng.randomBytes(1e6).toString('base64')
 var raw = base64.toByteArray(data)
 
-suite
+new benchmark.Suite()
   .add('base64.toByteArray() (decode)', function () {
     var raw2 = base64.toByteArray(data) // eslint-disable-line no-unused-vars
   })
