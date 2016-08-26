@@ -17,7 +17,7 @@
   "devDependencies": {
     "benchmark": "^2.1.0",
     "browserify": "^13.0.0",
-    "standard": "^6.0.5",
+    "standard": "*",
     "tape": "4.x",
     "uglify-js": "^2.6.2"
   }
