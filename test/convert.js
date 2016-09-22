@@ -13,7 +13,7 @@ var checks = [
 ]
 
 test('convert to base64 and back', function (t) {
-  t.plan(checks.length)
+  t.plan(checks.length * 2)
 
   for (var i = 0; i < checks.length; i++) {
     var check = checks[i]
@@ -25,6 +25,7 @@ test('convert to base64 and back', function (t) {
     str = map(arr, function (byte) { return String.fromCharCode(byte) }).join('')
 
     t.equal(check, str, 'Checked ' + check)
+    t.equal(b64.byteLength(b64Str), arr.length, 'Checked length for ' + check)
   }
 })
 
