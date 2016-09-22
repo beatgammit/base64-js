@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git://github.com/beatgammit/base64-js.git"
   },
-  "main": "lib/b64.js",
+  "main": "index.js",
   "scripts": {
     "build": "browserify -s base64js -r ./ | uglifyjs -m > base64js.min.js",
     "test": "standard && tape test/*.js"
