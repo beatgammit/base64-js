@@ -8,18 +8,14 @@ var lookup = []
 var revLookup = []
 var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array
 
-function init () {
-  var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-  for (var i = 0, len = code.length; i < len; ++i) {
-    lookup[i] = code[i]
-    revLookup[code.charCodeAt(i)] = i
-  }
-
-  revLookup['-'.charCodeAt(0)] = 62
-  revLookup['_'.charCodeAt(0)] = 63
+var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+for (var i = 0, len = code.length; i < len; ++i) {
+  lookup[i] = code[i]
+  revLookup[code.charCodeAt(i)] = i
 }
 
-init()
+revLookup['-'.charCodeAt(0)] = 62
+revLookup['_'.charCodeAt(0)] = 63
 
 function placeHoldersCount (b64) {
   var len = b64.length
