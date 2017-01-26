@@ -3,7 +3,10 @@
   "version": "1.2.0",
   "description": "Base64 encoding/decoding in pure JS",
   "keywords": [
-    "base64"
+    "base64",
+    "JavaScript",
+    "encode",
+    "decode"
   ],
   "homepage": "https://github.com/beatgammit/base64-js",
   "bugs": {
