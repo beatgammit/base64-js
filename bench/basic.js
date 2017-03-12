@@ -1,7 +1,12 @@
-var random = require('crypto').pseudoRandomBytes
+var randomBytes = require('crypto').randomBytes
+var XorShift128Plus = require('xorshift.js').XorShift128Plus
+
+var seed = process.env.SEED || randomBytes(16).toString('hex')
+console.log('SEED: ' + seed)
+var prng = new XorShift128Plus(seed)
 
 var b64 = require('../')
-var data = random(1e6).toString('base64')
+var data = prng.randomBytes(1e6).toString('base64')
 var start = Date.now()
 var raw = b64.toByteArray(data)
 var middle = Date.now()
