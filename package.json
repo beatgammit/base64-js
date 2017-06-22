@@ -28,10 +28,10 @@
     "unit": "tape test/*.js"
   },
   "devDependencies": {
-    "benchmark": "^2.1.0",
+    "benchmark": "^2.1.4",
     "browserify": "^14.0.0",
     "standard": "*",
     "tape": "4.x",
-    "uglify-js": "^2.6.2"
+    "uglify-js": "^2.8.29"
   }
 }
