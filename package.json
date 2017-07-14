@@ -14,6 +14,7 @@
   "files": [
     "test",
     "index.js",
+    "base64js.js",
     "base64js.min.js"
   ],
   "main": "index.js",
@@ -22,7 +23,7 @@
     "url": "git://github.com/beatgammit/base64-js.git"
   },
   "scripts": {
-    "build": "browserify -s base64js -r ./ | uglifyjs -m > base64js.min.js",
+    "build": "browserify -s base64js -r ./ > base64js.js && uglifyjs -m < base64js.js > base64js.min.js",
     "lint": "standard",
     "test": "npm run lint && npm run unit",
     "unit": "tape test/*.js"
