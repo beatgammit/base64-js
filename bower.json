@@ -1,0 +1,27 @@
+{
+  "name": "base64-js",
+  "description": "Base64 encoding/decoding in pure JS",
+  "keywords": [
+    "base64"
+  ],
+  "homepage": "https://github.com/beatgammit/base64-js",
+  "license": "MIT",
+  "authors": [
+    "T. Jameson Little <t.jameson.little@gmail.com>"
+  ],
+  "moduleType": [
+    "globals",
+    "amd",
+    "node"
+  ],
+  "main": "base64js.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/beatgammit/base64-js.git"
+  },
+  "ignore": [
+    "/.*",
+    "bench",
+    "test"
+  ]
+}
