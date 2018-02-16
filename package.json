@@ -1,6 +1,6 @@
 {
   "name": "base64-js",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Base64 encoding/decoding in pure JS",
   "keywords": [
     "base64"
