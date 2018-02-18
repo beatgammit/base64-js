@@ -30,11 +30,11 @@ test('convert to base64 and back', function (t) {
 })
 
 var data = [
-    [[0, 0, 0], 'AAAA'],
-    [[0, 0, 1], 'AAAB'],
-    [[0, 1, -1], 'AAH/'],
-    [[1, 1, 1], 'AQEB'],
-    [[0, -73, 23], 'ALcX']
+  [[0, 0, 0], 'AAAA'],
+  [[0, 0, 1], 'AAAB'],
+  [[0, 1, -1], 'AAH/'],
+  [[1, 1, 1], 'AQEB'],
+  [[0, -73, 23], 'ALcX']
 ]
 
 test('convert known data to string', function (t) {
