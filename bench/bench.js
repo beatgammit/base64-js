@@ -13,6 +13,9 @@ suite
   .add('base64.fromByteArray() (encode)', function () {
     var data2 = base64.fromByteArray(raw) // eslint-disable-line no-unused-vars
   })
+  .add('base64.byteLength() (encode)', function () {
+    var len = base64.byteLength(data) // eslint-disable-line no-unused-vars
+  })
   .on('error', function (event) {
     console.error(event.target.error.stack)
   })
