@@ -53,6 +53,8 @@ test('convert known data from string', function (t) {
     var string = data[i][1]
     var actual = b64.toByteArray(string)
     t.ok(equal(actual, expected), 'Ensure that ' + string + ' deserialise to ' + expected)
+    var length = b64.byteLength(string)
+    t.equal(length, expected.length, 'Ensure that ' + string + ' has byte lentgh of ' + expected.length)
   }
   t.end()
 })
