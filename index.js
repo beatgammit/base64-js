@@ -38,15 +38,15 @@ function getLens (b64) {
   return [validLen, placeHoldersLen]
 }
 
+// base64 is 4/3 + up to two characters of the original data
 function byteLength (b64) {
-  return _byteLength(b64, getLens(b64))
-}
-
-function _byteLength (b64, lens) {
+  var lens = getLens(b64)
   var validLen = lens[0]
   var placeHoldersLen = lens[1]
+  return ((validLen + placeHoldersLen) * 3 / 4) - placeHoldersLen
+}
 
-  // base64 is 4/3 + up to two characters of the original data
+function _byteLength (b64, validLen, placeHoldersLen) {
   return ((validLen + placeHoldersLen) * 3 / 4) - placeHoldersLen
 }
 
@@ -56,7 +56,7 @@ function toByteArray (b64) {
   var validLen = lens[0]
   var placeHoldersLen = lens[1]
 
-  var arr = new Arr(_byteLength(b64, lens))
+  var arr = new Arr(_byteLength(b64, validLen, placeHoldersLen))
 
   var curByte = 0
 
