@@ -130,13 +130,13 @@ function fromByteArray (uint8) {
 
   // pad the end with zeros, but make sure to not forget the extra bytes
   if (extraBytes === 1) {
-    tmp = uint8[len - 1]
+    tmp = uint8[len - 1] & 0xFF
     parts[curChunk] =
       lookup[tmp >> 2] +
       lookup[tmp << 4 & 0x3F] +
       '=='
   } else if (extraBytes === 2) {
-    tmp = uint8[len - 2] << 8 | uint8[len - 1]
+    tmp = (uint8[len - 2] & 0xFF) << 8 | (uint8[len - 1] & 0xFF)
     parts[curChunk] =
       lookup[tmp >> 10] +
       lookup[tmp >> 4 & 0x3F] +
