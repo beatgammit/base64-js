@@ -3,9 +3,9 @@ os:
   - linux
 language: node_js
 node_js:
-  - "0.12"
-  - "4"
   - "6"
+  - "8"
+  - "10"
 env:
   matrix:
     - TEST_SUITE=unit
