@@ -11,27 +11,41 @@
   },
   "license": "MIT",
   "author": "T. Jameson Little <t.jameson.little@gmail.com>",
+  "contributors": ["Brett Zamir"],
   "files": [
     "test",
     "index.js",
-    "base64js.min.js"
+    "base64js.js",
+    "base64js.min.js",
+    "base64js-es.js",
+    "base64js-es.min.js"
   ],
-  "main": "index.js",
+  "main": "base64js.js",
+  "module": "base64js-es.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/beatgammit/base64-js.git"
   },
   "scripts": {
-    "build": "browserify -s base64js -r ./ | uglifyjs -m > base64js.min.js",
-    "lint": "standard",
+    "build": "rollup -c",
+    "lint": "eslint .",
     "test": "npm run lint && npm run unit",
     "unit": "tape test/*.js"
   },
+  "engines": {
+    "node": "*"
+  },
+  "dependencies": {},
   "devDependencies": {
     "benchmark": "^2.1.4",
-    "browserify": "^14.0.0",
-    "standard": "*",
-    "tape": "4.x",
-    "uglify-js": "^2.8.29"
+    "eslint": "5.6.0",
+    "eslint-config-standard": "12.0.0",
+    "eslint-plugin-import": "2.14.0",
+    "eslint-plugin-node": "7.0.1",
+    "eslint-plugin-promise": "4.0.1",
+    "eslint-plugin-standard": "4.0.0",
+    "rollup": "0.66.2",
+    "rollup-plugin-terser": "^3.0.0",
+    "tape": "4.x"
   }
 }
