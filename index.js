@@ -4,20 +4,23 @@ exports.byteLength = byteLength
 exports.toByteArray = toByteArray
 exports.fromByteArray = fromByteArray
 
-var lookup = []
-var revLookup = []
+var lookups = { _: [], url: [] }
+var revLookups = { _: [], url: null }
 var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array
 
 var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 for (var i = 0, len = code.length; i < len; ++i) {
-  lookup[i] = code[i]
-  revLookup[code.charCodeAt(i)] = i
+  lookups._[i] = lookups.url[i] = code[i]
+  revLookups._[code.charCodeAt(i)] = i
 }
 
 // Support decoding URL-safe base64 strings, as Node.js does.
 // See: https://en.wikipedia.org/wiki/Base64#URL_applications
-revLookup['-'.charCodeAt(0)] = 62
-revLookup['_'.charCodeAt(0)] = 63
+lookups.url[62] = '-'
+lookups.url[63] = '_'
+revLookups._['-'.charCodeAt(0)] = 62
+revLookups._['_'.charCodeAt(0)] = 63
+revLookups.url = revLookups._
 
 function getLens (b64) {
   var len = b64.length
@@ -50,11 +53,12 @@ function _byteLength (b64, validLen, placeHoldersLen) {
   return ((validLen + placeHoldersLen) * 3 / 4) - placeHoldersLen
 }
 
-function toByteArray (b64) {
+function toByteArray (b64, alphabet) {
   var tmp
   var lens = getLens(b64)
   var validLen = lens[0]
   var placeHoldersLen = lens[1]
+  var revLookup = revLookups[alphabet || '_']
 
   var arr = new Arr(_byteLength(b64, validLen, placeHoldersLen))
 
@@ -96,14 +100,14 @@ function toByteArray (b64) {
   return arr
 }
 
-function tripletToBase64 (num) {
+function tripletToBase64 (num, lookup) {
   return lookup[num >> 18 & 0x3F] +
     lookup[num >> 12 & 0x3F] +
     lookup[num >> 6 & 0x3F] +
     lookup[num & 0x3F]
 }
 
-function encodeChunk (uint8, start, end) {
+function encodeChunk (uint8, start, end, lookup) {
   var tmp
   var output = []
   for (var i = start; i < end; i += 3) {
@@ -111,22 +115,23 @@ function encodeChunk (uint8, start, end) {
       ((uint8[i] << 16) & 0xFF0000) +
       ((uint8[i + 1] << 8) & 0xFF00) +
       (uint8[i + 2] & 0xFF)
-    output.push(tripletToBase64(tmp))
+    output.push(tripletToBase64(tmp, lookup))
   }
   return output.join('')
 }
 
-function fromByteArray (uint8) {
+function fromByteArray (uint8, alphabet) {
   var tmp
   var len = uint8.length
   var extraBytes = len % 3 // if we have 1 byte left, pad 2 bytes
   var parts = []
   var maxChunkLength = 16383 // must be multiple of 3
+  var lookup = lookups[alphabet || '_']
 
   // go through the array every three bytes, we'll deal with trailing stuff later
   for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
     parts.push(encodeChunk(
-      uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)
+      uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength), lookup
     ))
   }
 
