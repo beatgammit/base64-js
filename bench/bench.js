@@ -2,7 +2,7 @@ var base64 = require('../')
 var benchmark = require('benchmark')
 
 var suite = new benchmark.Suite()
-var random = require('crypto').pseudoRandomBytes
+var random = require('crypto').randomBytes
 var data = random(1e6).toString('base64')
 var raw = base64.toByteArray(data)
 

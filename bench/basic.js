@@ -1,4 +1,4 @@
-var random = require('crypto').pseudoRandomBytes
+var random = require('crypto').randomBytes
 
 var b64 = require('../')
 var data = random(1e6).toString('base64')
