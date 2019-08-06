@@ -4,23 +4,23 @@ exports.byteLength = byteLength
 exports.toByteArray = toByteArray
 exports.fromByteArray = fromByteArray
 
-var lookups = { _: [], url: [] }
-var revLookups = { _: [], url: null }
+var lookups = { default: [], url: [] }
+var revLookups = { default: [], url: null }
 var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array
 
 var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 for (var i = 0, len = code.length; i < len; ++i) {
-  lookups._[i] = lookups.url[i] = code[i]
-  revLookups._[code.charCodeAt(i)] = i
+  lookups.default[i] = lookups.url[i] = code[i]
+  revLookups.default[code.charCodeAt(i)] = i
 }
 
 // Support decoding URL-safe base64 strings, as Node.js does.
 // See: https://en.wikipedia.org/wiki/Base64#URL_applications
 lookups.url[62] = '-'
 lookups.url[63] = '_'
-revLookups._['-'.charCodeAt(0)] = 62
-revLookups._['_'.charCodeAt(0)] = 63
-revLookups.url = revLookups._
+revLookups.default['-'.charCodeAt(0)] = 62
+revLookups.default['_'.charCodeAt(0)] = 63
+revLookups.url = revLookups.default
 
 function getLens (b64) {
   var len = b64.length
@@ -58,7 +58,7 @@ function toByteArray (b64, alphabet) {
   var lens = getLens(b64)
   var validLen = lens[0]
   var placeHoldersLen = lens[1]
-  var revLookup = revLookups[alphabet || '_']
+  var revLookup = revLookups[alphabet || 'default']
 
   var arr = new Arr(_byteLength(b64, validLen, placeHoldersLen))
 
@@ -126,7 +126,7 @@ function fromByteArray (uint8, alphabet) {
   var extraBytes = len % 3 // if we have 1 byte left, pad 2 bytes
   var parts = []
   var maxChunkLength = 16383 // must be multiple of 3
-  var lookup = lookups[alphabet || '_']
+  var lookup = lookups[alphabet || 'default']
 
   // go through the array every three bytes, we'll deal with trailing stuff later
   for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
