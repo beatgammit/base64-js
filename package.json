@@ -13,11 +13,6 @@
     "tape": "4.x",
     "uglify-js": "^3.6.0"
   },
-  "files": [
-    "test",
-    "index.js",
-    "base64js.min.js"
-  ],
   "homepage": "https://github.com/beatgammit/base64-js",
   "keywords": [
     "base64"
