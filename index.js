@@ -3,24 +3,43 @@
 exports.byteLength = byteLength
 exports.toByteArray = toByteArray
 exports.fromByteArray = fromByteArray
-
-var lookups = { default: [], url: [] }
-var revLookups = { default: [], url: null }
-var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array
-
-var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-for (var i = 0, len = code.length; i < len; ++i) {
-  lookups.default[i] = lookups.url[i] = code[i]
-  revLookups.default[code.charCodeAt(i)] = i
+exports.alphabets = {
+  default: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 }
 
-// Support decoding URL-safe base64 strings, as Node.js does.
-// See: https://en.wikipedia.org/wiki/Base64#URL_applications
-lookups.url[62] = '-'
-lookups.url[63] = '_'
-revLookups.default['-'.charCodeAt(0)] = 62
-revLookups.default['_'.charCodeAt(0)] = 63
-revLookups.url = revLookups.default
+// Include base64url alphabet
+var alphabets = exports.alphabets
+alphabets.url = alphabets.default.slice(0, -2)
+alphabets.url += '-'
+alphabets.url += '_'
+
+var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array
+var lookups = {}
+
+function getLookup (name) {
+  var lookup = lookups[name]
+  if (lookup) return lookup
+  var alphabet = alphabets[name]
+  if (!alphabet) throw new Error('Unknown alphabet ' + name)
+  lookup = lookups[name] = {
+    encode: [],
+    decode: []
+  }
+  var i = 0
+  while (i < alphabet.length) {
+    var letter = alphabet[i]
+    lookup.encode[i] = letter
+    lookup.decode[letter.charCodeAt(0)] = i
+    i++
+  }
+  if (name === 'default') {
+    // Support decoding URL-safe base64 strings, as Node.js does.
+    // See: https://en.wikipedia.org/wiki/Base64#URL_applications
+    lookup.decode['-'.charCodeAt(0)] = 62
+    lookup.decode['_'.charCodeAt(0)] = 63
+  }
+  return lookup
+}
 
 function getLens (b64) {
   var len = b64.length
@@ -58,7 +77,7 @@ function toByteArray (b64, alphabet) {
   var lens = getLens(b64)
   var validLen = lens[0]
   var placeHoldersLen = lens[1]
-  var revLookup = revLookups[alphabet || 'default']
+  var lookup = getLookup(alphabet || 'default').decode
 
   var arr = new Arr(_byteLength(b64, validLen, placeHoldersLen))
 
@@ -72,10 +91,10 @@ function toByteArray (b64, alphabet) {
   var i
   for (i = 0; i < len; i += 4) {
     tmp =
-      (revLookup[b64.charCodeAt(i)] << 18) |
-      (revLookup[b64.charCodeAt(i + 1)] << 12) |
-      (revLookup[b64.charCodeAt(i + 2)] << 6) |
-      revLookup[b64.charCodeAt(i + 3)]
+      (lookup[b64.charCodeAt(i)] << 18) |
+      (lookup[b64.charCodeAt(i + 1)] << 12) |
+      (lookup[b64.charCodeAt(i + 2)] << 6) |
+      lookup[b64.charCodeAt(i + 3)]
     arr[curByte++] = (tmp >> 16) & 0xFF
     arr[curByte++] = (tmp >> 8) & 0xFF
     arr[curByte++] = tmp & 0xFF
@@ -83,16 +102,16 @@ function toByteArray (b64, alphabet) {
 
   if (placeHoldersLen === 2) {
     tmp =
-      (revLookup[b64.charCodeAt(i)] << 2) |
-      (revLookup[b64.charCodeAt(i + 1)] >> 4)
+      (lookup[b64.charCodeAt(i)] << 2) |
+      (lookup[b64.charCodeAt(i + 1)] >> 4)
     arr[curByte++] = tmp & 0xFF
   }
 
   if (placeHoldersLen === 1) {
     tmp =
-      (revLookup[b64.charCodeAt(i)] << 10) |
-      (revLookup[b64.charCodeAt(i + 1)] << 4) |
-      (revLookup[b64.charCodeAt(i + 2)] >> 2)
+      (lookup[b64.charCodeAt(i)] << 10) |
+      (lookup[b64.charCodeAt(i + 1)] << 4) |
+      (lookup[b64.charCodeAt(i + 2)] >> 2)
     arr[curByte++] = (tmp >> 8) & 0xFF
     arr[curByte++] = tmp & 0xFF
   }
@@ -126,7 +145,7 @@ function fromByteArray (uint8, alphabet) {
   var extraBytes = len % 3 // if we have 1 byte left, pad 2 bytes
   var parts = []
   var maxChunkLength = 16383 // must be multiple of 3
-  var lookup = lookups[alphabet || 'default']
+  var lookup = getLookup(alphabet || 'default').encode
 
   // go through the array every three bytes, we'll deal with trailing stuff later
   for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
