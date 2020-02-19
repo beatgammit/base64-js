@@ -23,11 +23,21 @@ For use in web browsers do:
 
 ## methods
 
-`base64js` has three exposed functions, `byteLength`, `toByteArray` and `fromByteArray`, which both take a single argument.
+`base64js` has three exposed functions, `byteLength`, `toByteArray` and `fromByteArray`, each requiring a single argument. `toByteArray` and `fromByteArray` also accept an optional `alphabet` argument (see `alphabets` property below).
 
 * `byteLength` - Takes a base64 string and returns length of byte array
 * `toByteArray` - Takes a base64 string and returns a byte array
 * `fromByteArray` - Takes a byte array and returns a base64 string
+
+## properties
+
+Use the `alphabets` property to do base64 transcoding with arbitrary alphabets. The included [base64url](https://tools.ietf.org/html/rfc4648#section-5) alphabet is implemented internally using this interface. Example:
+```
+b64.alphabets.custom = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?'
+var a = b64.toByteArray('aa+/')
+var b = b64.fromByteArray(a, 'custom')
+console.log(b === 'aa!?') // true
+```
 
 ## license
 
