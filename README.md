@@ -31,7 +31,7 @@ For use in web browsers do:
 
 ## properties
 
-Use the `alphabets` property to do base64 transcoding with arbitrary alphabets. The included [base64url](https://tools.ietf.org/html/rfc4648#section-5) alphabet is implemented internally using this interface. Example:
+Use the `alphabets` property to do base64 transcoding with arbitrary alphabets. The included [url](https://tools.ietf.org/html/rfc4648#section-5) alphabet is implemented internally using this interface. Example:
 ```
 b64.alphabets.custom = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?'
 var a = b64.toByteArray('aa+/')
