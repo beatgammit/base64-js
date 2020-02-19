@@ -31,7 +31,7 @@ test('decode base64url', function (t) {
   t.end()
 })
 
-test('decode base64url', function (t) {
+test('encode base64url', function (t) {
   t.deepEqual(
     b64.fromByteArray([251, 239, 255], 'url'),
     '--__'
