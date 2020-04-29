@@ -1,7 +1,7 @@
 var test = require('tape')
 var b64 = require('../')
 
-test('decode url-safe style base64 strings', function (t) {
+test('default alphabet should also decode url-safe style base64 strings', function (t) {
   var expected = [0xff, 0xff, 0xbe, 0xff, 0xef, 0xbf, 0xfb, 0xef, 0xff]
 
   var str = '//++/++/++//'
@@ -20,5 +20,21 @@ test('decode url-safe style base64 strings', function (t) {
 
   t.equal(b64.byteLength(str), actual.length)
 
+  t.end()
+})
+
+test('decode base64url', function (t) {
+  t.deepEqual(
+    b64.toByteArray('--__', 'url'),
+    [251, 239, 255]
+  )
+  t.end()
+})
+
+test('encode base64url', function (t) {
+  t.deepEqual(
+    b64.fromByteArray([251, 239, 255], 'url'),
+    '--__'
+  )
   t.end()
 })
