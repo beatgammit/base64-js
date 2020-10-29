@@ -1,6 +1,6 @@
-var test = require('tape')
-var b64 = require('../')
-var checks = [
+const test = require('tape')
+const b64 = require('../')
+const checks = [
   'a',
   'aa',
   'aaa',
@@ -15,8 +15,8 @@ var checks = [
 test('convert to base64 and back', function (t) {
   t.plan(checks.length * 2)
 
-  for (var i = 0; i < checks.length; i++) {
-    var check = checks[i]
+  for (let i = 0; i < checks.length; i++) {
+    const check = checks[i]
     var b64Str, arr, str
 
     b64Str = b64.fromByteArray(map(check, function (char) { return char.charCodeAt(0) }))
@@ -29,7 +29,7 @@ test('convert to base64 and back', function (t) {
   }
 })
 
-var data = [
+const data = [
   [[0, 0, 0], 'AAAA'],
   [[0, 0, 1], 'AAAB'],
   [[0, 1, -1], 'AAH/'],
@@ -38,30 +38,30 @@ var data = [
 ]
 
 test('convert known data to string', function (t) {
-  for (var i = 0; i < data.length; i++) {
-    var bytes = data[i][0]
-    var expected = data[i][1]
-    var actual = b64.fromByteArray(bytes)
+  for (let i = 0; i < data.length; i++) {
+    const bytes = data[i][0]
+    const expected = data[i][1]
+    const actual = b64.fromByteArray(bytes)
     t.equal(actual, expected, 'Ensure that ' + bytes + ' serialise to ' + expected)
   }
   t.end()
 })
 
 test('convert known data from string', function (t) {
-  for (var i = 0; i < data.length; i++) {
-    var expected = data[i][0]
-    var string = data[i][1]
-    var actual = b64.toByteArray(string)
+  for (let i = 0; i < data.length; i++) {
+    const expected = data[i][0]
+    const string = data[i][1]
+    const actual = b64.toByteArray(string)
     t.ok(equal(actual, expected), 'Ensure that ' + string + ' deserialise to ' + expected)
-    var length = b64.byteLength(string)
+    const length = b64.byteLength(string)
     t.equal(length, expected.length, 'Ensure that ' + string + ' has byte lentgh of ' + expected.length)
   }
   t.end()
 })
 
 function equal (a, b) {
-  var i
-  var length = a.length
+  let i
+  const length = a.length
   if (length !== b.length) return false
   for (i = 0; i < length; ++i) {
     if ((a[i] & 0xFF) !== (b[i] & 0xFF)) return false
@@ -70,10 +70,10 @@ function equal (a, b) {
 }
 
 function map (arr, callback) {
-  var res = []
-  var kValue, mappedValue
+  const res = []
+  let kValue, mappedValue
 
-  for (var k = 0, len = arr.length; k < len; k++) {
+  for (let k = 0, len = arr.length; k < len; k++) {
     if ((typeof arr === 'string' && !!arr.charAt(k))) {
       kValue = arr.charAt(k)
       mappedValue = callback(kValue, k, arr)
