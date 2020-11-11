@@ -3,11 +3,12 @@ os:
   - linux
 language: node_js
 node_js:
-  - "6"
-  - "8"
-  - "10"
-  - "12"
-  - "14"
+  - lts/*
+  - '6'
+  - '8'
+  - '10'
+  - '12'
+  - '14'
 env:
   matrix:
     - TEST_SUITE=unit
