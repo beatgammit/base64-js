@@ -14,6 +14,6 @@ env:
 matrix:
   include:
     - os: linux
-      node_js: "6"
+      node_js: lts/*
       env: TEST_SUITE=lint
 script: npm run $TEST_SUITE
