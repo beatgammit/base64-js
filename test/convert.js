@@ -17,12 +17,11 @@ test('convert to base64 and back', function (t) {
 
   for (let i = 0; i < checks.length; i++) {
     const check = checks[i]
-    var b64Str, arr, str
 
-    b64Str = b64.fromByteArray(map(check, function (char) { return char.charCodeAt(0) }))
+    const b64Str = b64.fromByteArray(map(check, function (char) { return char.charCodeAt(0) }))
 
-    arr = b64.toByteArray(b64Str)
-    str = map(arr, function (byte) { return String.fromCharCode(byte) }).join('')
+    const arr = b64.toByteArray(b64Str)
+    const str = map(arr, function (byte) { return String.fromCharCode(byte) }).join('')
 
     t.equal(check, str, 'Checked ' + check)
     t.equal(b64.byteLength(b64Str), arr.length, 'Checked length for ' + check)

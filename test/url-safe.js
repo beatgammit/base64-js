@@ -6,7 +6,7 @@ test('decode url-safe style base64 strings', function (t) {
 
   let str = '//++/++/++//'
   let actual = b64.toByteArray(str)
-  for (var i = 0; i < actual.length; i++) {
+  for (let i = 0; i < actual.length; i++) {
     t.equal(actual[i], expected[i])
   }
 
@@ -14,7 +14,7 @@ test('decode url-safe style base64 strings', function (t) {
 
   str = '__--_--_--__'
   actual = b64.toByteArray(str)
-  for (i = 0; i < actual.length; i++) {
+  for (let i = 0; i < actual.length; i++) {
     t.equal(actual[i], expected[i])
   }
 
