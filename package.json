@@ -10,16 +10,21 @@
   "devDependencies": {
     "babel-minify": "^0.5.1",
     "benchmark": "^2.1.4",
-    "browserify": "^16.3.0",
+    "browserify": "^17.0.0",
     "standard": "*",
-    "tape": "4.x"
+    "to-uint8array": "^0.1.1",
+    "tape": "^5.3.1"
   },
   "homepage": "https://github.com/beatgammit/base64-js",
   "keywords": [
     "base64"
   ],
+  "engines": {
+    "node": ">=12.20"
+  },
   "license": "MIT",
   "main": "index.js",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git://github.com/beatgammit/base64-js.git"
