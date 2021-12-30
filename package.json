@@ -20,6 +20,11 @@
   ],
   "license": "MIT",
   "main": "index.js",
+  "files": [
+    "base64js.min.js",
+    "index.d.ts",
+    "index.js"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/beatgammit/base64-js.git"
