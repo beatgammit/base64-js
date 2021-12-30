@@ -3,7 +3,7 @@ base64-js
 
 `base64-js` does basic base64 encoding/decoding in pure JS.
 
-[![build status](https://secure.travis-ci.org/beatgammit/base64-js.png)](http://travis-ci.org/beatgammit/base64-js)
+[![CI](https://github.com/beatgammit/base64-js/actions/workflows/main.yml/badge.svg)](https://github.com/beatgammit/base64-js/actions/workflows/main.yml)
 
 Many browsers already have base64 encoding/decoding functionality, but it is for text data, not all-purpose binary data.
 
