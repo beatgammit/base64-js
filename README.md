@@ -15,9 +15,7 @@ With [npm](https://npmjs.org) do:
 
 `npm install base64-js` and `var base64js = require('base64-js')`
 
-For use in web browsers do:
-
-`<script src="base64js.min.js"></script>`
+If you want to quickly include the library in an HTML page use a CDN such as [UNPKG](https://unpkg.com) or [Skypack](https://www.skypack.dev).
 
 [Get supported base64-js with the Tidelift Subscription](https://tidelift.com/subscription/pkg/npm-base64-js?utm_source=npm-base64-js&utm_medium=referral&utm_campaign=readme)
 
