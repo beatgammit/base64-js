@@ -12,7 +12,7 @@
     "benchmark": "^2.1.4",
     "browserify": "^16.3.0",
     "standard": "*",
-    "tape": "4.x"
+    "tape": "^5.4.0"
   },
   "homepage": "https://github.com/feross/base64-js",
   "keywords": [
