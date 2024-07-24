@@ -1,5 +1,6 @@
-base64-js
-=========
+# base64-js
+
+### Ongoing work has temporarily moved from [beatgammit/base64-js](https://github.com/beatgammit/base64-js) to [feross/base64-js](https://github.com/feross/base64-js).
 
 `base64-js` does basic base64 encoding/decoding in pure JS.
 
@@ -25,9 +26,9 @@ For use in web browsers do:
 
 `base64js` has three exposed functions, `byteLength`, `toByteArray` and `fromByteArray`, which both take a single argument.
 
-* `byteLength` - Takes a base64 string and returns length of byte array
-* `toByteArray` - Takes a base64 string and returns a byte array
-* `fromByteArray` - Takes a byte array and returns a base64 string
+- `byteLength` - Takes a base64 string and returns length of byte array
+- `toByteArray` - Takes a base64 string and returns a byte array
+- `fromByteArray` - Takes a byte array and returns a base64 string
 
 ## license
 
