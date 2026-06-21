@@ -22,7 +22,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/beatgammit/base64-js.git"
+    "url": "git+https://github.com/beatgammit/base64-js.git"
   },
   "scripts": {
     "build": "browserify -s base64js -r ./ | minify > base64js.min.js",
